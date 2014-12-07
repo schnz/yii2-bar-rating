@@ -1,0 +1,21 @@
+{
+    "name": "coksnuss/yii2-bar-rating",
+    "description": "Wrapper widget for the jQuery Bar Rating Plugin.",
+    "keywords": ["yii2", "widget", "rating"],
+    "type": "yii2-extension",
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "Markus Schanz",
+            "email": "coksnuss@googlemail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "coksnuss\\widgets\\barrating\\": ""
+        }
+    }
+}
