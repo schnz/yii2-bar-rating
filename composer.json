@@ -11,7 +11,8 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "~2.0"
+        "yiisoft/yii2": "~2.0",
+        "bower-asset/jquery-bar-rating": "~1.0.5",
     },
     "autoload": {
         "psr-4": {

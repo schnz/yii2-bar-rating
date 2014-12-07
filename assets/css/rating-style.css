@@ -1,0 +1,172 @@
+/* All of the styles below were taken from the authors demo page */
+
+/******* Rating Style: Vertical bars *******/
+.rating-style-vbar .br-widget {
+    height: 52px;
+}
+
+.rating-style-vbar .br-widget a {
+    display: block;
+    width: 15px;
+    padding: 5px 0 5px 0;
+    height: 30px;
+    float: left;
+    background-color: #e3e3e3;
+    margin: 1px;
+    text-align: center;
+}
+
+.rating-style-vbar .br-widget a.br-active,
+.rating-style-vbar .br-widget a.br-selected {
+    background-color: #59a6d6;
+}
+
+.rating-style-vbar .br-widget .br-current-rating {
+    font-size: 20px;
+    line-height: 2;
+    float: left;
+    padding: 0 20px 0 20px;
+    color: #646464;
+}
+
+/******* Rating Style: Horizontal bars *******/
+.rating-style-hbar .br-widget {
+    height: 25px;
+}
+
+.rating-style-hbar .br-widget a {
+    display: block;
+    width: 70px;
+    height: 16px;
+    float: left;
+    background-color: #e3e3e3;
+    margin: 1px;
+}
+
+.rating-style-hbar .br-widget a.br-active,
+.rating-style-hbar .br-widget a.br-selected {
+    background-color: #59a6d6;
+}
+
+.rating-style-hbar .br-widget .br-current-rating {
+    line-height: 1.1;
+    float: left;
+    padding: 0 20px 0 20px;
+    color: #646464;
+}
+
+.rating-style-hbar .br-readonly a.br-active,
+.rating-style-hbar .br-readonly a.br-selected {
+    background-color: #cbcbcb;
+}
+
+/******* Rating Style: Lines *******/
+.rating-style-line .br-widget {
+    height: 52px;
+}
+
+.rating-style-line .br-widget a {
+    display: block;
+    width: 40px;
+    padding: 5px 0 5px 0;
+    height: 30px;
+    float: left;
+    background-color: inherit;
+    border-bottom: 2px solid #e3e3e3;
+    color: #646464;
+    margin: 1px;
+    text-decoration: none;
+    line-height: 2.1;
+    text-align: center;
+}
+
+.rating-style-line .br-widget a span {
+    color: white;
+}
+
+.rating-style-line .br-widget a.br-active,
+.rating-style-line .br-widget a.br-selected {
+
+    border-bottom: 2px solid #646464;
+}
+
+.rating-style-line .br-widget a:hover span,
+.rating-style-line .br-widget a.br-current span {
+    color: #646464;
+}
+
+/******* Rating Style: Boxes *******/
+.rating-style-box .br-widget {
+    height: 52px;
+}
+
+.rating-style-box .br-widget a {
+    display: block;
+    width: 35px;
+    height: 35px;
+    float: left;
+    background-color: #e3e3e3;
+    margin: 2px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 2.2;
+    text-align: center;
+    color: #b6b6b6;
+}
+
+.rating-style-box .br-widget a.br-active,
+.rating-style-box .br-widget a.br-selected {
+    background-color: #59a6d6;
+    color: white;
+}
+
+/******* Rating Style: Advanced Boxes *******/
+.rating-style-box-alt .br-widget a {
+    padding: 5px;
+    color: #646464;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 3;
+    text-align: center;
+}
+
+.rating-style-box-alt .br-widget a.br-active {
+    background-color: #e3e3e3;
+    color: #646464;
+}
+
+.rating-style-box-alt .br-widget a.br-selected {
+    background-color: #59a6d6;
+    color: white;
+}
+
+/******* Rating Style: Stars *******/
+.rating-style-star .br-widget {
+    height: 24px;
+}
+
+.rating-style-star .br-widget a {
+    background: url('../img/star.png');
+    width: 24px;
+    height: 24px;
+    display: block;
+    float: left;
+}
+
+.rating-style-star .br-widget a:hover,
+.rating-style-star .br-widget a.br-active,
+.rating-style-star .br-widget a.br-selected {
+    background-position: 0 24px;
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio : 1.5),
+(min-resolution: 192dpi) {
+    .rating-f .br-widget a {
+        background: url('../img/star@2x.png');
+        background-size: 24px 48px;
+    }
+}

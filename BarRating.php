@@ -3,10 +3,10 @@
 namespace coksnuss\widgets\barrating;
 
 use yii\widgets\InputWidget;
-// use yii\helpers\Html;
-// use yii\helpers\Json;
-// use yii\web\JsExpression;
-// use yii\web\View;
+use yii\helpers\Html;
+use yii\helpers\Json;
+use yii\web\JsExpression;
+use yii\web\View;
 
 class BarRating extends InputWidget
 {
@@ -15,16 +15,25 @@ class BarRating extends InputWidget
      */
     const PLUGIN_NAME = 'barrating';
 
-    const STYLE_BARS = 'style-bar';
+    /**
+     * Available styles
+     */
+    const STYLE_VERTICAL_BAR   = 'vbar';
+    const STYLE_HORIZONTAL_BAR = 'hbar';
+    const STYLE_LINE           = 'line';
+    const STYLE_BOX            = 'box';
+    const STYLE_BOX_ALT        = 'box-alt';
+    const STYLE_STAR           = 'star';
 
     /**
      * @var string The CSS style to apply to this widget. Use one of the constants defined in this class.
+     * Set this to null if you want to apply your own style.
      */
-    public $style = 'style-bar';
+    public $style = 'vbar';
     /**
-     * @var integer The amount of bars to display.
+     * @var integer The key value pairs of the rating plugin.
      */
-    public $bars = 5;
+    public $items = [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5];
     /**
      * @var string Pass an option value to specify initial rating. If null, the plugin will try to set the
      * initial rating by finding an option with a `selected` attribute.
@@ -48,6 +57,24 @@ class BarRating extends InputWidget
      * @see https://github.com/antennaio/jquery-bar-rating
      */
     public $clientOptions = [];
+    /**
+     * @var array
+     */
+    public $options = ['prompt' => ''];
+    /**
+     * @var array The options to apply to the wrapper div tag
+     */
+    public $wrapperOptions = [];
+    /**
+     * @var array A list of default options to be applied for a specific style. Keys represent the style
+     * names and the key-value pairs define the default options to be applied.
+     */
+    public $defaults = [
+        'line'    => ['showValues' => true, 'showSelectedRating' => false],
+        'box'     => ['showValues' => true, 'showSelectedRating' => false],
+        'box-alt' => ['showValues' => true, 'showSelectedRating' => false],
+        'star'    => ['showSelectedRating' => false],
+    ];
 
     /**
      * @var string the hashed variable to store the clientOptions
@@ -58,15 +85,36 @@ class BarRating extends InputWidget
     /**
      * @inheritdoc
      */
+    public function init()
+    {
+        parent::init();
+
+        if (isset($this->style)) {
+            if (isset($this->defaults[$this->style])) {
+                foreach ($this->defaults[$this->style] as $prop => $val) {
+                    if (!isset($this->$prop)) {
+                        $this->$prop = $val;
+                    }
+                }
+            }
+
+            Html::addCssClass($this->wrapperOptions, 'rating-style-' . $this->style);
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function run()
     {
-        $items = array_combine(range(1, $this->bars), range(1, $this->bars));
-
+        echo Html::beginTag('div', $this->wrapperOptions);
         if ($this->hasModel()) {
-            echo Html::activeDropDownList($this->model, $this->attribute, $items, $this->options);
+            echo Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options);
         } else {
-            echo Html::dropDownList($this->name, $this->value, $items, $this->options);
+            echo Html::dropDownList($this->name, $this->value, $this->items, $this->options);
         }
+        echo Html::endTag('div', $this->wrapperOptions);
+
         $this->registerClientScript();
     }
 
@@ -113,23 +161,23 @@ class BarRating extends InputWidget
         $js = '';
         $view = $this->getView();
         $this->initClientOptions();
-        if (!empty($this->initialRating)) {
+        if (isset($this->initialRating)) {
             $this->clientOptions['initialRating'] = intval($this->initialRating);
         }
-        if (!empty($this->showValues)) {
+        if (isset($this->showValues)) {
             $this->clientOptions['showValues'] = (bool) $this->showValues;
         }
-        if (!empty($this->showSelectedRating)) {
+        if (isset($this->showSelectedRating)) {
             $this->clientOptions['showSelectedRating'] = (bool) $this->showSelectedRating;
         }
-        if (!empty($this->reverse)) {
+        if (isset($this->reverse)) {
             $this->clientOptions['reverse'] = (bool) $this->reverse;
         }
-        $this->hashPluginOptions($view);
+        $this->hashClientOptions($view);
 
         $id = $this->options['id'];
         $js .= '$("#' . $id . '").' . self::PLUGIN_NAME . "(" . $this->_hashVar . ");\n";
-        //BarRatingAsset::register($view);
+        BarRatingAsset::register($view);
         $view->registerJs($js);
     }
 }
